@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace DesafioFundamentos.Models
 {
     public class Estacionamento
@@ -15,7 +17,11 @@ namespace DesafioFundamentos.Models
         {
             Console.Write("Digite a placa do veículo para estacionar: ");
             string placa = Console.ReadLine();
+
+            bool ok = Regex.IsMatch(placa, "^[a-zA-Z0-9-]+$");
+
             if (veiculos.Exists(x => x.ToUpper() == placa.ToUpper())) Console.WriteLine("Esse veículo já foi cadastrado.");
+            else if (!ok || placa.Length < 7 || placa.Length > 8) Console.WriteLine("Placa inválida. Confirme que a placa esteja no padrão Mercosul.");
             else
             {
                 veiculos.Add(placa.ToUpper());
